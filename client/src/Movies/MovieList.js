@@ -17,6 +17,25 @@ export default class MovieList extends Component {
       .catch(err => console.log(err.response));
   }
 
+  componentDidUpdate(pp, ps, ss) {
+    console.log(this.props.movieEdite.title);
+    if (this.props.movieEdite.title) {
+      axios
+        .get("http://localhost:5000/api/movies")
+        .then(res => this.setState({ movies: res.data }))
+        .catch(err => console.log(err.response));
+      this.props.setMovieEdite({});
+    }
+
+    if (this.props.checkdelete) {
+      axios
+        .get("http://localhost:5000/api/movies")
+        .then(res => this.setState({ movies: res.data }))
+        .catch(err => console.log(err.response));
+      this.props.setcheckdelete(false);
+    }
+  }
+
   render() {
     return (
       <div className="movie-list">
